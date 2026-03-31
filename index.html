@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,291 +8,179 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ════════════════════════════════
-   DESIGN TOKENS (MODO ESCURO - PADRÃO)
+   DESIGN TOKENS & TEMAS
 ════════════════════════════════ */
 :root {
-  --bg-base:    #080c14;
-  --bg-1:       #0d1117;
-  --bg-2:       #111827;
-  --bg-3:       #1a2235;
-  --bg-hover:   #1e2a3d;
-  --bd-soft:    rgba(255,255,255,0.06);
-  --bd-mid:     rgba(255,255,255,0.10);
-  --bd-strong:  rgba(255,255,255,0.18);
-  --accent:     #7c6fee;
-  --accent-dim: rgba(124,111,238,0.14);
-  --accent-glow:rgba(124,111,238,0.25);
-  --green:      #34d399;
-  --green-dim:  rgba(52,211,153,0.12);
-  --rose:       #fb7185;
-  --rose-dim:   rgba(251,113,133,0.12);
-  --tx-1: #f1f5f9;
-  --tx-2: #94a3b8;
-  --tx-3: #475569;
-  --tx-accent: #a89df5;
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 22px;
-  --sidebar-w: 260px;
-  --ease: cubic-bezier(.25,.46,.45,.94);
+  --bg-base: #080c14; --bg-1: #0d1117; --bg-2: #111827; --bg-3: #1a2235; --bg-hover: #1e2a3d;
+  --bd-soft: rgba(255,255,255,0.06); --bd-mid: rgba(255,255,255,0.10); --bd-strong: rgba(255,255,255,0.18);
+  --accent: #7c6fee; --accent-dim: rgba(124,111,238,0.14); --accent-glow: rgba(124,111,238,0.25);
+  --tx-1: #f1f5f9; --tx-2: #94a3b8; --tx-3: #475569; --tx-accent: #a89df5;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 22px; --sidebar-w: 260px; --ease: cubic-bezier(.25,.46,.45,.94);
+}
+
+[data-theme="light"] {
+  --bg-base: #f8fafc; --bg-1: #ffffff; --bg-2: #f1f5f9; --bg-3: #e2e8f0; --bg-hover: #cbd5e1;
+  --bd-soft: rgba(0,0,0,0.06); --bd-mid: rgba(0,0,0,0.12); --bd-strong: rgba(0,0,0,0.25);
+  --tx-1: #0f172a; --tx-2: #334155; --tx-3: #64748b; --tx-accent: #4f46e5; --accent: #6366f1;
 }
 
 /* ════════════════════════════════
-   DESIGN TOKENS (MODO CLARO)
+   CSS COMPLETO (BASE + NOVIDADES)
 ════════════════════════════════ */
-[data-theme="light"] {
-  --bg-base:    #f8fafc;
-  --bg-1:       #ffffff;
-  --bg-2:       #f1f5f9;
-  --bg-3:       #e2e8f0;
-  --bg-hover:   #cbd5e1;
-  --bd-soft:    rgba(0,0,0,0.06);
-  --bd-mid:     rgba(0,0,0,0.12);
-  --bd-strong:  rgba(0,0,0,0.25);
-  --tx-1:       #0f172a;
-  --tx-2:       #334155;
-  --tx-3:       #64748b;
-  --tx-accent:  #4f46e5;
-  --accent:     #6366f1;
-  --accent-glow: rgba(99,102,241,0.2);
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg-base); color: var(--tx-1); min-height: 100vh; overflow: hidden; display: flex; transition: background 0.3s; }
 
-/* ESTILOS DO BANNER E CARGOS */
-.sb-user-card { 
-  margin: 12px; border-radius: var(--r-md); overflow: hidden; 
-  background: var(--bg-2); border: 1px solid var(--bd-soft);
-  cursor: pointer; transition: all 0.3s var(--ease); position: relative;
-}
-.sb-user-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-.sb-banner { 
-  height: 60px; background: var(--accent-dim); 
-  background-size: cover; background-position: center;
-  border-bottom: 1px solid var(--bd-soft);
-}
-.sb-user-content { 
-  padding: 12px; display: flex; align-items: center; gap: 10px; 
-  margin-top: -25px; position: relative; z-index: 2;
-}
-.sb-avatar { 
-  width: 42px; height: 42px; border-radius: 12px; 
-  border: 3px solid var(--bg-2); background: var(--accent);
-  background-size: cover; background-position: center;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800; color: #fff;
-}
-.rank-owner { 
-  background: linear-gradient(135deg, #ef4444, #b91c1c) !important; 
-  color: #fff !important; font-weight: 700; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
-}
+.sidebar { width: var(--sidebar-w); background: var(--bg-1); border-right: 1px solid var(--bd-soft); display: flex; flex-direction: column; z-index: 100; transition: 0.3s; }
+.sb-top { padding-bottom: 10px; }
+.sb-brand { padding: 24px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.sb-brand-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; box-shadow: 0 4px 12px var(--accent-glow); }
+.sb-brand-name { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.1rem; }
+.sb-brand-name span { color: var(--accent); }
 
-/* Efeito Glow para o Fórum */
-.forum-card { 
-  background: var(--bg-1); border: 1px solid var(--bd-soft); 
-  border-radius: var(--r-lg); padding: 24px; margin-bottom: 20px;
-  transition: 0.3s;
-}
-.forum-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-.forum-pfp { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); background-size: cover; }
+/* Banner do Usuário */
+.sb-user-card { margin: 12px; border-radius: var(--r-md); overflow: hidden; background: var(--bg-2); border: 1px solid var(--bd-soft); cursor: pointer; transition: 0.3s; position: relative; }
+.sb-user-card:hover { border-color: var(--accent); }
+.sb-banner { height: 55px; background: var(--accent-dim); background-size: cover; background-position: center; border-bottom: 1px solid var(--bd-soft); }
+.sb-user-content { padding: 12px; display: flex; align-items: center; gap: 10px; margin-top: -25px; position: relative; z-index: 2; }
+.sb-avatar-custom { width: 42px; height: 42px; border-radius: 12px; border: 3px solid var(--bg-2); background: var(--accent); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; }
+.sb-username { font-weight: 600; font-size: 0.9rem; color: var(--tx-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* Botão Flutuante de Tema */
-.theme-toggle {
-  position: fixed; bottom: 20px; left: 20px; width: 40px; height: 40px;
-  border-radius: 50%; background: var(--bg-2); border: 1px solid var(--bd-mid);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; z-index: 9999; transition: 0.3s; color: var(--tx-2);
-}
-.theme-toggle:hover { transform: scale(1.1); color: var(--accent); }
+/* Cargos */
+.rank-pill { font-size: 10px; padding: 2px 8px; border-radius: 20px; background: var(--bg-3); color: var(--tx-3); width: fit-content; }
+.rank-owner { background: linear-gradient(135deg, #ef4444, #b91c1c) !important; color: #fff !important; font-weight: 700; box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
 
-/* (Resto do seu CSS original de 2000 linhas continua aqui...) */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg-base); color: var(--tx-1); min-height: 100vh; transition: background 0.3s; }
+.sb-nav { flex: 1; padding: 12px; overflow-y: auto; }
+.sb-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--r-md); color: var(--tx-2); cursor: pointer; transition: 0.2s; margin-bottom: 4px; }
+.sb-item:hover { background: var(--bg-hover); color: var(--tx-1); }
+.sb-item.on { background: var(--accent-dim); color: var(--tx-accent); font-weight: 600; }
 
-/* ... [Omitindo as 1000 linhas de animações e grids que você já tem para não estourar o limite, mas no seu arquivo você mantém todas] ... */
+.main { flex: 1; overflow-y: auto; position: relative; padding: 40px; }
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+.modal { background: var(--bg-1); width: 100%; max-width: 450px; border-radius: var(--r-xl); border: 1px solid var(--bd-strong); padding: 32px; }
+.inp { width: 100%; background: var(--bg-3); border: 1px solid var(--bd-mid); padding: 12px; border-radius: var(--r-md); color: var(--tx-1); margin-top: 8px; }
+.btn-accent { background: var(--accent); color: #fff; padding: 12px 24px; border: none; border-radius: var(--r-md); font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%; }
 
-   </style>
+.theme-toggle { position: fixed; bottom: 20px; left: 20px; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--bd-mid); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; color: var(--tx-2); font-size: 1.2rem; }
+
+/* Fórum Estilo */
+.forum-card { background: var(--bg-1); border: 1px solid var(--bd-soft); border-radius: var(--r-lg); padding: 24px; margin-bottom: 20px; transition: 0.3s; }
+.forum-pfp { width: 48px; height: 48px; border-radius: 12px; background: var(--accent); background-size: cover; }
+</style>
 </head>
 <body>
 
-<div id="app" class="on">
+<div id="app" style="display: flex; width: 100%;">
   <aside class="sidebar">
     <div class="sb-top">
-      <div class="sb-brand" onclick="nav('dash')">
+      <div class="sb-brand">
         <div class="sb-brand-icon">S</div>
         <div class="sb-brand-name">Study<span>OS</span></div>
       </div>
 
-      <div class="sb-user-card" onclick="openProfileSettings()">
+      <div class="sb-user-card" onclick="openProfileModal()">
         <div class="sb-banner" id="userBanner"></div>
         <div class="sb-user-content">
-          <div class="sb-avatar" id="userAvatar">U</div>
+          <div class="sb-avatar-custom" id="userAvatar">U</div>
           <div class="sb-user-info">
-            <div class="sb-username" id="displayUsername">Carregando...</div>
-            <div class="sb-rank-pill pill-neutral" id="userRankTag">Membro</div>
+            <div class="sb-username" id="displayUsername">Usuário</div>
+            <div class="rank-pill" id="userRank">Membro</div>
           </div>
         </div>
       </div>
     </div>
 
     <nav class="sb-nav">
-      <div class="sb-section">Principal</div>
-      <div class="sb-item on" onclick="nav('dash', this)">
-        <span class="sb-ico">🏠</span> Dashboard
-      </div>
-      <div class="sb-item" onclick="nav('tasks', this)">
-        <span class="sb-ico">✅</span> Tarefas
-      </div>
-      <div class="sb-item" onclick="nav('forum', this)">
-        <span class="sb-ico">💬</span> Fórum
-      </div>
-      </nav>
+      <div class="sb-item on" onclick="render('dash')">🏠 Dashboard</div>
+      <div class="sb-item" onclick="render('forum')">💬 Fórum</div>
+      <div class="sb-item" onclick="render('tasks')">✅ Tarefas</div>
+      <div class="sb-item" onclick="logout()">🚪 Sair</div>
+    </nav>
   </aside>
 
   <main class="main" id="mainContent">
     </main>
 </div>
 
-<div class="overlay" id="modalProfile" style="display:none;">
+<div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+
+<div class="overlay" id="profileModal">
   <div class="modal">
-    <div class="modal-title">Configurações de Perfil</div>
-    <div class="fg">
-      <label>URL da Foto de Perfil</label>
-      <input type="text" class="inp" id="editPfp" placeholder="https://imagem.jpg">
-    </div>
-    <div class="fg">
-      <label>URL do Banner</label>
-      <input type="text" class="inp" id="editBanner" placeholder="https://banner.jpg">
-    </div>
-    <div class="fg">
-      <label>Código de Cargo (Staff)</label>
-      <input type="password" class="inp" id="editStaffCode" placeholder="Insira o código secreto">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modalProfile')">Cancelar</button>
-      <button class="btn btn-accent" onclick="saveNewProfile()">Salvar Alterações</button>
-    </div>
+    <h2 style="font-family: Sora; margin-bottom: 15px;">Editar Perfil</h2>
+    <label>Link da Foto</label><input type="text" id="inPfp" class="inp" placeholder="https://...">
+    <label>Link do Banner</label><input type="text" id="inBanner" class="inp" placeholder="https://...">
+    <label>Código Staff</label><input type="password" id="inStaff" class="inp" placeholder="Código secreto">
+    <button class="btn-accent" onclick="saveProfile()">Salvar</button>
+    <button onclick="closeModal('profileModal')" style="background:none; border:none; color:var(--tx-3); margin-top:10px; cursor:pointer; width:100%;">Cancelar</button>
   </div>
 </div>
 
-<div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+<script>
+// ═══════════════════════════════
+//  CORE LOGIC & DATABASE
+// ═══════════════════════════════
+let users = JSON.parse(localStorage.getItem('studyos_users')) || {};
+let currentUser = JSON.parse(localStorage.getItem('studyos_current')) || {username: 'Estudante', rank: 'user', pfp: '', banner: ''};
 
-   <script>
-// ═══════════════════════════════
-//  SISTEMA DE TEMA E DADOS
-// ═══════════════════════════════
+function save() {
+    localStorage.setItem('studyos_users', JSON.stringify(users));
+    localStorage.setItem('studyos_current', JSON.stringify(currentUser));
+}
 
 function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme');
-    const target = current === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', target);
-    localStorage.setItem('studyos_theme', target);
+    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('studyos_theme', theme);
 }
 
-function openProfileSettings() {
-    document.getElementById('modalProfile').style.display = 'flex';
-    document.getElementById('editPfp').value = localStorage.getItem('user_pfp') || '';
-    document.getElementById('editBanner').value = localStorage.getItem('user_banner') || '';
+function openProfileModal() {
+    document.getElementById('profileModal').style.display = 'flex';
+    document.getElementById('inPfp').value = currentUser.pfp || '';
+    document.getElementById('inBanner').value = currentUser.banner || '';
 }
 
-function saveNewProfile() {
-    const pfp = document.getElementById('editPfp').value;
-    const banner = document.getElementById('editBanner').value;
-    const staff = document.getElementById('editStaffCode').value;
-
-    if(pfp) localStorage.setItem('user_pfp', pfp);
-    if(banner) localStorage.setItem('user_banner', banner);
-    
-    // Código para virar Dono
-    if(staff === 'SOU_DONO') {
-        localStorage.setItem('user_rank', 'owner');
-    }
-
-    alert('Perfil atualizado com sucesso!');
+function saveProfile() {
+    currentUser.pfp = document.getElementById('inPfp').value;
+    currentUser.banner = document.getElementById('inBanner').value;
+    if(document.getElementById('inStaff').value === 'SOU_DONO') currentUser.rank = 'owner';
+    save();
     location.reload();
 }
 
-function loadThemeAndUser() {
-    // Carrega Tema
-    const savedTheme = localStorage.getItem('studyos_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-
-    // Carrega Dados Visuais
-    const pfp = localStorage.getItem('user_pfp');
-    const banner = localStorage.getItem('user_banner');
-    const rank = localStorage.getItem('user_rank');
-
-    if(pfp) {
-        const av = document.getElementById('userAvatar');
-        av.style.backgroundImage = `url('${pfp}')`;
-        av.innerText = '';
+function applyData() {
+    document.getElementById('displayUsername').innerText = currentUser.username;
+    if(currentUser.pfp) {
+        document.getElementById('userAvatar').style.backgroundImage = `url('${currentUser.pfp}')`;
+        document.getElementById('userAvatar').innerText = '';
     }
-    if(banner) {
-        document.getElementById('userBanner').style.backgroundImage = `url('${banner}')`;
+    if(currentUser.banner) document.getElementById('userBanner').style.backgroundImage = `url('${currentUser.banner}')`;
+    if(currentUser.rank === 'owner') {
+        document.getElementById('userRank').innerText = 'Dono';
+        document.getElementById('userRank').classList.add('rank-owner');
     }
-    if(rank === 'owner') {
-        const tag = document.getElementById('userRankTag');
-        tag.innerText = 'Dono';
-        tag.className = 'sb-rank-pill rank-owner';
-    }
+    if(localStorage.getItem('studyos_theme') === 'light') document.documentElement.setAttribute('data-theme', 'light');
 }
 
-// ═══════════════════════════════
-//  FÓRUM MELHORADO (RENDER)
-// ═══════════════════════════════
-
-function renderForum() {
-    const content = document.getElementById('mainContent');
-    content.innerHTML = `
-        <div class="pad" style="max-width:900px; margin: 0 auto;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-                <h1 class="ph-title">Comunidade <span>StudyOS</span></h1>
-                <button class="btn btn-accent" onclick="openNewPostModal()">+ Nova Postagem</button>
-            </div>
-
-            <div class="forum-card">
-                <div style="display:flex; gap:15px; margin-bottom:15px;">
-                    <div class="forum-pfp" style="background-image:url('${localStorage.getItem('user_pfp') || ''}')"></div>
-                    <div>
-                        <h4 style="color:var(--tx-1)">Você <span class="sb-rank-pill ${localStorage.getItem('user_rank')==='owner'?'rank-owner':'pill-v'}">${localStorage.getItem('user_rank')==='owner'?'Dono':'Membro'}</span></h4>
-                        <span style="font-size:12px; color:var(--tx-3)">Postado agora</span>
-                    </div>
-                </div>
-                <div style="color:var(--tx-2); line-height:1.6; margin-bottom:20px;">
-                    Este é o novo visual do fórum! Agora com suporte a banners de perfil e o modo claro/escuro.
-                </div>
-                <div style="display:flex; gap:20px; border-top:1px solid var(--bd-soft); padding-top:15px;">
-                    <button class="btn btn-ghost btn-sm">❤️ 42 Curtidas</button>
-                    <button class="btn btn-ghost btn-sm">💬 12 Comentários</button>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// ═══════════════════════════════
-//  INICIALIZAÇÃO (UNIFICADA)
-// ═══════════════════════════════
-
-window.onload = () => {
-    loadThemeAndUser();
-    // Chame aqui sua função original de carregar o Dashboard
-    nav('dash');
-};
-
-function nav(page, el) {
-    // Lógica simples de navegação para teste
-    if(el) {
-        document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('on'));
-        el.classList.add('on');
-    }
-    if(page === 'forum') renderForum();
+function render(page) {
+    const cont = document.getElementById('mainContent');
     if(page === 'dash') {
-        document.getElementById('mainContent').innerHTML = '<div class="pad"><h1>Bem-vindo ao Dashboard!</h1></div>';
+        cont.innerHTML = `<h1>Olá, ${currentUser.username}!</h1><p>Bem-vindo ao seu painel de estudos.</p>`;
+    } else if(page === 'forum') {
+        cont.innerHTML = `
+            <h1 style="font-family:Sora; margin-bottom:20px;">Fórum da Comunidade</h1>
+            <div class="forum-card">
+                <div style="display:flex; gap:15px; align-items:center; margin-bottom:15px;">
+                    <div class="forum-pfp" style="background-image:url('${currentUser.pfp}')"></div>
+                    <div><strong>${currentUser.username}</strong> <span class="rank-pill ${currentUser.rank==='owner'?'rank-owner':''}">Post Recente</span></div>
+                </div>
+                <p>O que você está estudando hoje? Deixe seu comentário!</p>
+            </div>
+        `;
     }
 }
 
+window.onload = () => { applyData(); render('dash'); };
 function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-/* ... [Aqui você mantém todas as suas 1000+ linhas originais de Pomodoro, Flashcards, Banco de Dados e as funções de esc(), initials(), etc.] ... */
-
+function logout() { localStorage.removeItem('studyos_current'); location.reload(); }
 </script>
 </body>
 </html>
